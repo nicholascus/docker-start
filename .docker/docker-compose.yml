@@ -1,0 +1,32 @@
+version: "3.4"
+services:
+  nginx:
+    image: ${NGINX_IMAGE:-nginx:alpine}
+    ports:
+      - 80
+    restart: ${RESTART_POLICY:-always}
+  angular:
+    image: ${ANGULAR_IMAGE:-nicholascus/node-angular-dev:latest}
+    restart: ${RESTART_POLICY:-always}
+  php7fpm:
+    image: ${PHPFPM_IMAGE:-nicholascus/php7fpm-dev:latest}
+    environment:
+      DB_NAME: todo
+      DB_USER: root
+      DB_HOST: mysql
+      DB_PASSWORD: password
+    working_dir: /app
+    restart: always
+  mysql:
+    image: ${MYSQL_IMAGE:-mysql:5.7.26@sha256:196fe3e00d68b2417a8cf13482bdab1fcc2b32cf7c7575d0906c700688b352b4}
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    restart: ${RESTART_POLICY:-always}
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    ports:
+      - 80
+    environment:
+      - PMA_HOST=mysql
+      - PMA_PASSWORD=password
+    restart: ${RESTART_POLICY:-always}

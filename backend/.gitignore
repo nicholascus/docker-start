@@ -1,0 +1,5 @@
+.env
+vendor/
+.vagrant/
+.phplint-cache
+xdebug.log

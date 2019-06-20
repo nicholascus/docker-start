@@ -1,0 +1,17 @@
+version: "3.4"
+services:
+  nginx:
+    ports:
+      - ${LOCAL_PORT_NGINX:-8000}:80
+  angular:
+    ports:
+      - ${LOCAL_PORT_ANGULAR:-8001}:8200
+  php7fpm:
+    ports:
+      - ${LOCAL_PORT_PHPFPM:-8002}:9000
+  mysql:
+    ports:
+      - ${LOCAL_PORT_MYSQL:-8003}:3306
+  phpmyadmin:
+    ports:
+      - ${LOCAL_PORT_PHPMYADMIN:-8004}:80
