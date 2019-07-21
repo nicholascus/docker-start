@@ -16,15 +16,14 @@ else
 	export $(shell sed 's/=.*//' .docker/env/$$ENVFILE)
 endif
 
-COMPOSE_FILE:=.docker/docker-compose.yml$(if $(LOCAL),:.docker/docker-compose.local.yml,)$(if $(STATIC),:.docker/docker-compose.static-ports.yml,)
+CF:=-f .docker/docker-compose.yml$(if $(LOCAL), -f .docker/docker-compose.local.yml,)$(if $(STATIC), -f .docker/docker-compose.static-ports.yml,)
 
-DC=docker-compose
+DC=docker-compose $(CF)
 
 DC_RUN=$(DC) run --rm
 DC_EXEC=$(DC) exec
 
 export COMPOSE_PROJECT_NAME
-export COMPOSE_FILE
 export RESTART_POLICY
 
 all: rm up wait-mysql recreate-db
